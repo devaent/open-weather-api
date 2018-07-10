@@ -28,4 +28,4 @@ const WeatherReportSchema = new Schema(
     createdAt: { type: Date, default: Date.now } }
   );
 
-module.exports = mongoose.model('WeatherReport', WeatherReportSchema);
+mongoose.model('WeatherReport', WeatherReportSchema);

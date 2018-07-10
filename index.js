@@ -6,6 +6,9 @@ const keys = require('./config/keys');
 
 const app = express();
 
+require('./models/BikeStation');
+require('./models/WeatherReport');
+
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
@@ -15,8 +18,8 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/apiRoutes')(app);
 
-const BikeStation = require('./models/BikeStation');
-const WeatherReport = require('./models/WeatherReport');
+const BikeStation = mongoose.model('BikeStation');
+const WeatherReport = mongoose.model('WeatherReport');
 
 function getBikeStationData(){
   const url = 'https://www.rideindego.com/stations/json/';
@@ -52,7 +55,6 @@ function getWeatherReport(lat, lon) {
 }
 
 setInterval(async function () {
-  console.log("gathering data");
   try {
     const bikeStations = await getBikeStationData();
     bikeStations.forEach(async function (bikeStation) {
@@ -67,7 +69,7 @@ setInterval(async function () {
   } catch (err){
     console.log(err);
   }
-}, 1000);
+}, 1000*60*15);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

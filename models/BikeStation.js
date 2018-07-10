@@ -31,4 +31,4 @@ const bikeStationSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('BikeStation', bikeStationSchema);
+mongoose.model('BikeStation', bikeStationSchema);
