@@ -1,0 +1,19 @@
+{
+  "name": "open-weather-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Ben Soutendijk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devaent/open-weather-api/issues"
+  },
+  "homepage": "https://github.com/devaent/open-weather-api"
+}
