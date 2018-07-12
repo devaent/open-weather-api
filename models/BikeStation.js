@@ -27,8 +27,9 @@ const bikeStationSchema = new Schema(
       classicBikesAvailable: Number,
       smartBikesAvailable: Number },
     type: String,
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    weatherReportId: String
   }
 );
 
-mongoose.model('BikeStation', bikeStationSchema);
+module.exports = mongoose.model('BikeStation', bikeStationSchema);
