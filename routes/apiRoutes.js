@@ -22,19 +22,35 @@ module.exports = app => {
   });
 
   app.get('/api/v1/stations/:kioskId', async (req, res) => {
-    const at = new Date(req.query.at);
-    const from = new Date(req.query.from);
-    const to = new Date(req.query.to);
-    const frequency = req.query.frequency;
-    const kioskId = req.params.kioskId;
+    let at = new Date(req.query.at);
+    let from = new Date(req.query.from);
+    let to = new Date(req.query.to);
+    let frequency = req.query.frequency;
+    let kioskId = req.params.kioskId;
+    let weatherReportIds = [];
 
     if (from && to && frequency) {
-      const station = await BikeStation.find(
+      const weatherReports = await WeatherReport.find({
+        'createdAt' : { '$gte' : from, '$lt' : Date.now() }
+      });
+
+      let from = weatherReports[0].createdAt;
+
+      weatherReports.forEach((report, index) => {
+        // get dates at frequency
+      })
+
+      const stations = await BikeStation.find(
         {
           'properties.kioskId' : kioskId,
-          'createdAt' : {'$gte' : from, '$lt' : to}
+          'weatherReportId' : {'$in' : weatherReportIds}
         }
-      )
+      );
+      res.send({
+        at: 'error',
+        station: stations,
+        weather: weatherReports
+      });
     }
 
     else if (at) {
